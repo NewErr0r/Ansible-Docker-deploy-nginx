@@ -1,0 +1,45 @@
+---
+- name: Preparing for deployment containers
+  hosts: Web
+  gather_facts: no
+
+  tasks: 
+    - name: Creating main directory 
+      file: 
+        state: directory
+        path: /deployment-nginx-in-docker
+
+    - name: Creating directory for Dockerfile-site
+      file:
+        state: directory
+        path: /deployment-nginx-in-docker/site
+
+    - name: Creating directory for Dockerfile-balance
+      file:
+        state: directory
+        path: /deployment-nginx-in-docker/balance
+
+    - name: Copy files to site 
+      ansible.builtin.copy:
+        src: /home/dima/ansible-deploy-docker/Dockerfile-site
+        dest: /deployment-nginx-in-docker/site/Dockerfile
+
+    - name: Copy files to site 
+      ansible.builtin.copy:
+        src: /home/dima/ansible-deploy-docker/index.html
+        dest: /deployment-nginx-in-docker/site
+
+    - name: Copy files to balance  
+      ansible.builtin.copy:
+        src: /home/dima/ansible-deploy-docker/Dockerfile-balance
+        dest: /deployment-nginx-in-docker/balance/Dockerfile
+
+    - name: Copy files to balance  
+      ansible.builtin.copy:
+        src: /home/dima/ansible-deploy-docker/nginx.conf
+        dest: /deployment-nginx-in-docker/balance
+
+    - name: Copy files to main 
+      ansible.builtin.copy:
+        src: /home/dima/ansible-deploy-docker/docker-compose.yaml
+        dest: /deployment-nginx-in-docker

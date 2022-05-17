@@ -1,0 +1,22 @@
+---
+- name: Builting Dockerfile
+  hosts: Web
+  gather_facts: no 
+
+  tasks: 
+    - name: Builting Dockerfile-site
+      command: bash -c "docker build -t site /deployment-nginx-in-docker/site"
+
+    - name: Builting Dockerfile-balance
+      command: bash -c "docker build -t balance /deployment-nginx-in-docker/balance"
+
+    - name: copy and exectude script "docker-compose up"
+      script: /home/dima/ansible-deploy-docker/docker-compoce_up.sh
+
+    - name: Check docker run
+      command: bash -c "docker ps"
+      register: output
+
+    - name: Show output
+      debug: 
+        var: output

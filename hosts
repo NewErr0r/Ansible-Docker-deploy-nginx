@@ -1,0 +1,7 @@
+[Web]
+project_01 ansible_ssh_host=192.168.0.151
+project_02 ansible_ssh_host=192.168.0.152
+project_03 ansible_ssh_host=192.168.0.153
+
+[Web:vars]
+ansible_ssh_user=root
